@@ -26,12 +26,12 @@ from context import fda_context, clinical_trial_context
 # os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
 # os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
 
-os.environ["LANGSMITH_TRACING"]="true"
 os.environ["LANGSMITH_ENDPOINT"]="https://api.smith.langchain.com"
-os.environ["LANGSMITH_API_KEY"]="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"
-os.environ["LANGSMITH_PROJECT"]="langgraph-colab"
-os.environ["OPENAI_API_KEY"]="sk-proj-XKudWYOe0DrzebixiEhST3BlbkFJTrpK0LkXbBkIOzN2Zq1h"
-os.environ["GROQ_API_KEY"]="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"
+os.environ["OPENAI_API_KEY"]=st.secrets["OPENAI_API_KEY"]
+os.environ["GROQ_API_KEY"]= st.secrets["GROQ_API_KEY"]
+os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
+os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
+os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
 
 
 # Initialize Streamlit app
