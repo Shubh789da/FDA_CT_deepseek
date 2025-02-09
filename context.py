@@ -54,6 +54,7 @@ The column headings and its description are given
 """
 
 fda_context = """Pandas DataFrame name is 'FDA_drugs_df' :
+All the drugs present in the data are approved no need to filter for approved drugs
 Useful for answering questions about the drug or disease from FDA database
 Its columns are {FDA_drugs_df.columns}is more about use, contraindications, labels and other infomrations.
 Table 'fda_drug_database': Table containing information related to FDA drug database.
