@@ -343,7 +343,7 @@ if st.session_state.CONNECTED:
             error = result.get("error", None)
             if error:
                 # retry_count=1
-                st.write(f"Got erorr, Number of retries : {retry_count + 1}.")
+                st.write(f"Got erorr in the code, Number of retries : {retry_count + 1}.")
                 if retry_count < 3:
                     retry_count += 1
                     goto_agent = "generate_code"  # Retry code generation
