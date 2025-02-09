@@ -337,13 +337,13 @@ if st.session_state.CONNECTED:
             result = execute_python(state['code'], data)
             # return {"result": result}
             # Initialize retry count if not present
-            retry_count = state.get("retry_count", 1)
+            retry_count = state.get("retry_count", 0)
             # st.write(f"This type of result: {type(result['output'])}")
             
             error = result.get("error", None)
             if error:
                 # retry_count=1
-                st.write(f"Got erorr, Number of retries : {retry_count}.")
+                st.write(f"Got erorr, Number of retries : {retry_count + 1}.")
                 if retry_count < 3:
                     retry_count += 1
                     goto_agent = "generate_code"  # Retry code generation
