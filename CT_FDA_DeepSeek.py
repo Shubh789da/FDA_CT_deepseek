@@ -337,12 +337,12 @@ if st.session_state.CONNECTED:
             result = execute_python(state['code'], data)
             # return {"result": result}
             # Initialize retry count if not present
-            state["retry_count"] = state.get("retry_count", 0)
+            retry_count = state.get("retry_count", 1)
             # st.write(f"This type of result: {type(result['output'])}")
             
             error = result.get("error", None)
             if error:
-                retry_count=1
+                # retry_count=1
                 st.write(f"Got erorr, Number of retries : {retry_count}.")
                 if retry_count < 3:
                     retry_count += 1
@@ -355,7 +355,11 @@ if st.session_state.CONNECTED:
 
       
             return Command(
-                    update={"result": result,"out_df": result['result_df'], "last_df_name":result['last_df_name']},          
+                    update={"result": result,
+                            "out_df": result['result_df'],
+                            "last_df_name":result['last_df_name'],
+                            "retry_count": retry_count,
+                            },          
                     goto= goto_agent
                 )
 
