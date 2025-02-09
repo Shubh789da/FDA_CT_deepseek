@@ -79,16 +79,28 @@ if st.session_state.CONNECTED:
     # Load data and initialize session state
     if 'df' not in st.session_state:
         with st.spinner(f'🔍 Fetching clinical trials data for 🤒: **{st.session_state.text}**'):
-            st.session_state.df_ct = get_clinical_trials_data(st.session_state.text)
-                
-        # Update status message
-        st.success(f"✅ Clinical trials data fetched successfully for '{st.session_state.text}'!")
-        
-        with st.spinner(f"🔍Fetching FDA Data for💊:**{st.session_state.text}** "):
-           st.session_state.df_fda = fetch_open_fda(domain=st.session_state.domain, keyword=st.session_state.text)
-            # st.session_state.df_fda= pd.read_csv('apixaban_fda.csv')
-        # Update status message
-        st.success(f"✅ FDA drug data fetched successfully for '{st.session_state.text}'!")
+            try:
+                st.session_state.df_ct = get_clinical_trials_data(st.session_state.text)
+                if st.session_state.df_ct is None or st.session_state.df_ct.empty:
+                    st.warning(f"⚠️ No clinical trials data found for '{st.session_state.text}'.")
+                    st.session_state.df_ct = None
+                else:
+                    st.success(f"✅ Clinical trials data fetched successfully for '{st.session_state.text}'!")
+            except Exception as e:
+                st.error(f"❌ Error fetching clinical trials data for '{st.session_state.text}': {e}")
+                st.session_state.df_ct = None
+    
+        with st.spinner(f"🔍 Fetching FDA Data for 💊: **{st.session_state.text}**"):
+            try:
+                st.session_state.df_fda = fetch_open_fda(domain=st.session_state.domain, keyword=st.session_state.text)
+                if st.session_state.df_fda is None or st.session_state.df_fda.empty:
+                    st.warning(f"⚠️ No FDA data found for '{st.session_state.text}'.")
+                    st.session_state.df_fda = None
+                else:
+                    st.success(f"✅ FDA drug data fetched successfully for '{st.session_state.text}'!")
+            except Exception as e:
+                st.error(f"❌ Error fetching FDA data for '{st.session_state.text}': {e}")
+                st.session_state.df_fda = None
 
         # st.session_state.context_ct = clinical_trial_context
         # st.session_state.context_fda = fda_context
@@ -96,10 +108,13 @@ if st.session_state.CONNECTED:
         st.session_state.df = True
 
     #Display the dataframe
-    st.write('Data Sample: Top 10 rows from the clinical trials data')
-    st.dataframe(st.session_state.df_ct.head(10))
-    st.write('Data Sample: Top 10 rows from the FDA drug data')
-    st.dataframe(st.session_state.df_fda.head(10))
+    if isinstance(st.session_state.df_ct, pd.DataFrame):
+        st.write('Data Sample: Top 10 rows from the clinical trials data')
+        st.dataframe(st.session_state.df_ct.head(10))
+
+    if isinstance(st.session_state.df_fda, pd.DataFrame):
+        st.write('Data Sample: Top 10 rows from the FDA drug data')
+        st.dataframe(st.session_state.df_fda.head(10))
 
     # Display chat messages
     for message in st.session_state.messages:
