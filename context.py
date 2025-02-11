@@ -79,7 +79,7 @@ Some column details are:
 -warnings_and_cautions: Important warnings and cautions associated with the drug.
 -pharmacodynamics: Effects of the drug on the body's physiological systems.
 -precautions: What pre-caution should be taken while using the drug.
--clinical_studies: Details of any clinical studies conducted on the drug, It also includes trials NCTIDs that might led to its approval.
+-clinical_studies: This is long text field that includs details of any clinical studies conducted on the drug including its NCTIDs that might led to its approval.
 -is_original_packager: Indication if the drug is from the original packager.
 -upc: Universal Product Code for the drug.
 -pharm_class_cs: Chemical structure-based pharmacological class of the drug.
