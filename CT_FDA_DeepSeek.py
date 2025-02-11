@@ -19,6 +19,7 @@ from langgraph.types import Command
 from clinical_trials_module import get_clinical_trials_data
 from openfda import Open_FDA
 from context import fda_context, clinical_trial_context
+import traceback
 
 # Set up environment variables
 # os.environ["GROQ_API_KEY"]= st.secrets["GROQ_API_KEY"]
