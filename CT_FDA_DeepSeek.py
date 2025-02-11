@@ -347,9 +347,10 @@ if st.session_state.CONNECTED:
                             "last_df_name": last_df_name
                         }
                 except Exception as e:
+                    error_trace = traceback.format_exc()
                     return {
                         "output": None,
-                        "error": str(e),
+                        "error": str(error_trace),
                         "result_df": None,
                         "all_dataframes": {},
                         "last_df_name":None
