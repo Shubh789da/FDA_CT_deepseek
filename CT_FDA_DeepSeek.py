@@ -36,7 +36,7 @@ os.environ["LANGCHAIN_PROJECT"] = st.secrets["LANGCHAIN_PROJECT"]
 
 
 # Initialize Streamlit app
-st.title("Clinical Trial and FDA Drug Data Analysis using DeepSeek 🐳")
+st.title("Clinical Trial and FDA Drug Data Analysis using OpenAI(ChatGPT) ֎🇦🇮")
 
 if  'text' not in st.session_state:
     st.session_state.CONNECTED =  False
