@@ -251,12 +251,15 @@ if st.session_state.CONNECTED:
             # )
 
             messages = [
-                (
-                    "system",
-                    system_prompt,
-                ),
-                ("human", selected_message),
-            ]
+                        {
+                            "role": "system",
+                            "content":  system_prompt,
+                        },
+                        {
+                            "role": "user",
+                            "content": selected_message,
+                        }
+                    ]
             summary = llm.invoke(messages)
             response = summary.content
 
