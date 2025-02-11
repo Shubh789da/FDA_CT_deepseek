@@ -241,21 +241,24 @@ if st.session_state.CONNECTED:
             # Choose the correct prompt based on whether there's an error
             selected_message = user_message if not state.get('error') else user_message_rectify
 
-            chat_completion = client.chat.completions.create(
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": selected_message}
-                ],
-                model="deepseek-r1-distill-llama-70b",
-                temperature=0.1,
-            )
+            # chat_completion = client.chat.completions.create(
+            #     messages=[
+            #         {"role": "system", "content": system_prompt},
+            #         {"role": "user", "content": selected_message}
+            #     ],
+            #     model="deepseek-r1-distill-llama-70b",
+            #     temperature=0.1,
+            # )
+
+            summary = llm.invoke(messages)
+            response = summary.content
 
             def clean_code_response(response):
                 response = re.sub(r'<think>.*?</think>', '', response, flags=re.DOTALL)
                 code_match = re.search(r'```python\n(.*?)```', response, flags=re.DOTALL)
                 return code_match.group(1).strip() if code_match else response.strip()
 
-            response = chat_completion.choices[0].message.content
+            # response = chat_completion.choices[0].message.content
             return Command(
                 update={'code': clean_code_response(response)},
                 goto= "agent"
